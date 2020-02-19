@@ -61,7 +61,10 @@ The more efficient approach for solving this problem is \textit{learning rate de
 
 \section{Recursive Least Square}
 
-The solution obtained from Recursive Least Square algorithm is show in Fig \ref{fig:rls}. The learning curve obsurved from the algorithm is very similar to stochastic gradient descent. In addition, as the dimention of data increase, the number of iteration which the algorithm uses before converge is higher. The result of this experiment is shown in Table \ref{tab:rls-dim}.
+The solution obtained from Recursive Least Square algorithm is show in Fig \ref{fig:rls}. The learning curve obsurved from the algorithm is very similar to stochastic gradient descent. However, the speed of convergence is noticeably faster as the model starts to stabilize after about 100 iterations compare to stochastic gradient descent which converges after 200 iterations.
+
+Regarding data dimensionality, it can be observed that, as the dimention of data increase, the number of iteration which the algorithm uses before converge is higher. The result of this experiment is shown in Table \ref{tab:rls-dim}.
+
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.35]{RLS.png}
@@ -82,13 +85,26 @@ The solution obtained from Recursive Least Square algorithm is show in Fig \ref{
 \end{table}
 
 \section{Recursive Least Square on UCI dataset}
-The data used in this section is the \textit{Auto MPG} dataset(\url{https://archive.ics.uci.edu/ml/datasets/auto+mpg}). With the same number of iterations, it turns out that \textit{Recursive least sqaure} algorithm performs slightly better in terms of total sqaured error. Regarding the speed of convergence, Recursive least square converges much faster at the beginning and become stable since around 400 iterations.
+The data used in this section is the \textit{Auto MPG} dataset(\url{https://archive.ics.uci.edu/ml/datasets/auto+mpg}) which contains 536 samples with 4 continuous features.
+
+With the same number of iterations, it turns out that \textit{Recursive least sqaure} algorithm performs slightly better in terms of total sqaured error. Regarding the speed of convergence, Recursive least square converges much faster at the beginning and become stable since around 400 iterations.
 
 \begin{table}[H]
 \begin{center}
 \begin{tabular}{cc}
 \includegraphics[scale=0.5]{MPG-SGD.png} &
 \includegraphics[scale=0.5]{MPG-RLS.png}
+\end{tabular}
+\end{center}
+\end{table}
+
+In terms of accuracy, both models perform similarly on the validation set(30 percent data from the whole dataset) as shown in the figure below.
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{cc}
+\includegraphics[scale=0.5]{MPG-SGD-ACC.png} &
+\includegraphics[scale=0.5]{MPG-RLS-ACC.png}
 \end{tabular}
 \end{center}
 \end{table}

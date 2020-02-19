@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_absolute_error
 
 # %% Generate synthetic problem
 num_data = 500
@@ -304,13 +305,16 @@ for i in range(num_iteration):
     w_sgd -= learning_rate * gradient
     learning_rate *= (1/(1 + decay * i))
 
+test_predict = (X_test @ w_sgd)
+sgd_err = np.linalg.norm(Y_test - test_predict)
 fig, ax = plt.subplots(figsize=(4,4))
 ax.set_title('SGD Accuracy')
-ax.scatter(Y_test, (X_test @ w_sgd))
+ax.scatter(Y_test, test_predict)
 ax.grid(True)
+ax.text(1.7, -2.0, f'MSE:%.2f' % sgd_err)
 ax.set_xlabel("Target")
 ax.set_ylabel("Prediction")
-
+# plt.savefig("MPG-SGD-ACC.png")
 # %%
 w_rls = np.random.randn(num_features, 1)
 l = 1.0
@@ -331,11 +335,14 @@ for i in range(num_iteration):
     # Update P
     p = (p / l) - ((k @ x.T @ p) / l)
 
+test_predict = (X_test @ w_rls)
+rls_err = np.linalg.norm(Y_test - test_predict)
 fig, ax = plt.subplots(figsize=(4,4))
 ax.set_title('RLS Accuracy')
 ax.scatter(Y_test, (X_test @ w_rls))
 ax.grid(True)
 ax.set_xlabel("Target")
 ax.set_ylabel("Prediction")
-
+ax.text(1.7, -2.0, f'MSE:%.2f' % sgd_err)
+# plt.savefig("MPG-RLS-ACC.png")
 # %%
